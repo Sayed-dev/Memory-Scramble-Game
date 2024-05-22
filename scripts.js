@@ -9,6 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPairs = cards.length / 2;
 
 // flipCard by Bisho
+    function flipCard() {
+        if (lockBoard) return;
+        if (this === firstCard) return;
+
+        this.classList.add('flip');
+
+        if (!hasFlippedCard) {
+            hasFlippedCard = true;
+            firstCard = this;
+            return;
+        }
+
+        secondCard = this;
+        checkForMatch();
+    }
 
 // checkForMatch by Sayed
 function checkForMatch() {
@@ -23,7 +38,12 @@ function checkForMatch() {
     }
 }
 // disableCardsby Bisho
+function disableCards() {
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
 
+        resetBoard();
+    }
 // unflipCards by sayed
 function unflipCards() {
     lockBoard = true;
