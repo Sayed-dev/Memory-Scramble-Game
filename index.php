@@ -37,6 +37,51 @@
         </div>
         <button onclick="location.href='index.php?reset=true'">Reset Game</button>
     <?php endif; ?>
+<script>
+        let tries = <?= $tries ?>;
+        let timeLimit = <?= $timeLimit ?>;
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            const triesDisplay = document.getElementById('tries');
+            const timeRemainingDisplay = document.getElementById('time_remaining');
+            let hasFlippedCard = false;
+            let lockBoard = false;
+            let firstCard, secondCard;
+            let matches = 0;
+            const totalPairs = cards.length / 2;
 
+            function flipCard() {
+                if (lockBoard) return;
+                if (this === firstCard) return;
+
+                this.classList.add('flip');
+
+                if (!hasFlippedCard) {
+                    hasFlippedCard = true;
+                    firstCard = this;
+                    return;
+                }
+
+                secondCard = this;
+                checkForMatch();
+            }
+
+            function checkForMatch() {
+                let isMatch = firstCard.dataset.card === secondCard.dataset.card;
+                isMatch ? disableCards() : unflipCards();
+                updateTries();
+                if (isMatch) {
+                    matches++;
+                    if (matches === totalPairs) {
+                        clearInterval(timerInterval);
+                        alert('Congratulations, ' + document.getElementById('player_name_display').innerText + '! You completed the game!');
+                    }
+                }
+            }
+
+           // TODO add rest js for timer and disableCards, unflipCards,updateTries and resetBoard 
+            
+        });
+    </script>
 </body>
 </html>
