@@ -24,7 +24,16 @@
         <p>Number of Tries: <span id="tries"><?= $tries ?></span></p>
         <p>Time Remaining: <span id="time_remaining"><?= $timeLimit ?></span> seconds</p>
         <div class="game-board" style="grid-template-columns: repeat(<?= $columns ?>, 100px);">
-
+            <?php
+            foreach ($cards as $index => $card) {
+                echo '<div class="card" data-card="' . $card . '" data-index="' . $index . '">
+                        <div class="card-inner">
+                            <div class="card-front">?</div>
+                            <div class="card-back">' . $card . '</div>
+                        </div>
+                    </div>';
+            }
+            ?>
         </div>
         <button onclick="location.href='index.php?reset=true'">Reset Game</button>
     <?php endif; ?>
