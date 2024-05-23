@@ -56,6 +56,16 @@ function unflipCards() {
     }, 1500);
 }
 //updateTries by sayed
-
+function updateTries() {
+        tries++;
+        triesDisplay.innerText = tries;
+        <?php $_SESSION['tries'] = 'tries'; ?> // Update session variable with tries count
+    }
 // resetBoard by sayed
+     function resetBoard() {
+        [hasFlippedCard, lockBoard] = [false, false];
+        [firstCard, secondCard] = [null, null];
+    }
+
+    cards.forEach(card => card.addEventListener('click', flipCard));
 });
