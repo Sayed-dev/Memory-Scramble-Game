@@ -56,15 +56,6 @@ function unflipCards() {
     }, 1500);
 }
 //updateTries by sayed
-function unflipCards() {
-    lockBoard = true;
 
-    setTimeout(() => {
-        firstCard.classList.remove('flip');
-        secondCard.classList.remove('flip');
-
-        resetBoard();
-    }, 1500);
-}
 // resetBoard by sayed
 });
