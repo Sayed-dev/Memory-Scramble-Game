@@ -1,3 +1,51 @@
+<?php
+session_start();
+
+// Reset game if requested
+if (isset($_GET['reset'])) {
+    session_destroy();
+    header('Location: index.php');
+    exit;
+}
+
+// Initialize game
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $rows = (int)$_POST['rows'];
+    $columns = (int)$_POST['columns'];
+    $totalCards = $rows * $columns;
+    $playerName = $_POST['player_name'];
+
+    if ($totalCards % 2 != 0) {
+        $error = "The number of cells must be even to create pairs. Please adjust your input.";
+    } else {
+        $pairs = $totalCards / 2;
+        $cards = array_merge(range(1, $pairs), range(1, $pairs));
+        shuffle($cards);
+        $_SESSION['cards'] = $cards;
+        $_SESSION['rows'] = $rows;
+        $_SESSION['columns'] = $columns;
+        $_SESSION['tries'] = 0;  // Initialize tries counter
+        $_SESSION['player_name'] = $playerName;  // Store player name
+
+        // Set time limit based on the number of blocks
+        if ($totalCards >= 4 && $totalCards < 9) {
+            $_SESSION['time_limit'] = 60;  // 60 seconds for 4-8 blocks
+        } elseif ($totalCards > 8 && $totalCards <= 20) {
+            $_SESSION['time_limit'] = 120;  // 120 seconds for 9-20 blocks
+        } else {
+            $_SESSION['time_limit'] = 180;  // Default to 180 seconds for other cases
+        }
+    }
+}
+
+// Retrieve game state
+$cards = $_SESSION['cards'] ?? [];
+$rows = $_SESSION['rows'] ?? 0;
+$columns = $_SESSION['columns'] ?? 0;
+$tries = $_SESSION['tries'] ?? 0;
+$playerName = $_SESSION['player_name'] ?? '';
+$timeLimit = $_SESSION['time_limit'] ?? 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
