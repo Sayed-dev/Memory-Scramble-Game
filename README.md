@@ -23,5 +23,14 @@ Start Apache and MySQL:
 
 Click the "Start" button next to Apache.
 Ensure the service are running (indicated by a green light).
-Step 3: Set Up Your PHP Project
-test by bisho
+Step 3: Place Your PHP Project in the htdocs Directory
+- Locate htdocs Directory: Navigate to the XAMPP installation directory (e.g., C:\xampp) and open the htdocs folder.
+- Copy  Memory-Scramble-Game : Copy  Memory-Scramble-Game PHP project folder into the htdocs directory. For example, The project is named  Memory-Scramble-Game, the path should be C:\xampp\htdocs\Memory-Scramble-Game.
+
+Step 4: Run Memory-Scramble-Game PHP Project
+Open Your Project in Browser: Open your web browser and go to http://localhost/Memory-Scramble-Game.
+
+- Count down time for the game :
+- If the total number of blocks is between 5 and 8, set the timeout to 60 seconds.
+- If the total number of blocks is between 9 and 20, set the timeout to 120 seconds.
+- Otherwise, set the timeout to 180 seconds.
