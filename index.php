@@ -80,6 +80,49 @@
             }
 
            // TODO add rest js for timer and disableCards, unflipCards,updateTries and resetBoard 
+             function disableCards() {
+                firstCard.removeEventListener('click', flipCard);
+                secondCard.removeEventListener('click', flipCard);
+
+                resetBoard();
+            }
+
+            function unflipCards() {
+                lockBoard = true;
+
+                setTimeout(() => {
+                    firstCard.classList.remove('flip');
+                    secondCard.classList.remove('flip');
+
+                    resetBoard();
+                }, 1500);
+            }
+
+            function updateTries() {
+                tries++;
+                triesDisplay.innerText = tries;
+            }
+
+            function resetBoard() {
+                [hasFlippedCard, lockBoard] = [false, false];
+                [firstCard, secondCard] = [null, null];
+            }
+
+            function startTimer() {
+                let timeLeft = timeLimit;
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timeRemainingDisplay.innerText = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        alert('Time is up! Game over.');
+                        location.href = 'index.php?reset=true';
+                    }
+                }, 1000);
+            }
+
+            startTimer();
+            cards.forEach(card => card.addEventListener('click', flipCard));
             
         });
     </script>
